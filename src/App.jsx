@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./components/Navbar";
 import ProductCards from "./components/ProductCards";
+import CartScreen from "./pages/CartScreen";
 
 const App = () => {
 
   const [productsData, setProductsData] = React.useState([]);
+  const [iscartOpen, setIsCartOpen] = useState(false);
 
   const getProductData = async () => {
     try {
@@ -23,16 +25,22 @@ const App = () => {
   return (
     <div className="h-fit bg-black text-white p-2 flex flex-col gap-5">
       
-      <Navbar />
-      
-      <div className="grid grid-cols-4 gap-4">
-        {
-          productsData.map((elem) => {
-            return <ProductCards key={elem.id} product={elem} />;
-          })
-        }
-      </div>
+      <Navbar setIsCartOpen={setIsCartOpen} />
 
+      {iscartOpen ? (
+        <div className="">
+          <CartScreen />        
+        </div>
+      ) : (
+        <div className="grid grid-cols-4 gap-4">
+          {
+            productsData.map((elem) => {
+              return <ProductCards key={elem.id} product={elem} />;
+            })
+          }
+        </div>
+      )}
+      
     </div>
   );
 };
