@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Navbar from './components/Navbar'
 
 const App = () => {
 
@@ -13,11 +14,11 @@ const App = () => {
     }
   }
 
-  getProductData()
+  // getProductData()
   
   return (
-    <div>
-      <h1>Hello, World!</h1>
+    <div className="h-screen bg-black text-white p-2">
+      <Navbar />
     </div>
   )
 }
