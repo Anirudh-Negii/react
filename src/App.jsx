@@ -1,26 +1,40 @@
-import React from 'react'
-import axios from 'axios'
-import Navbar from './components/Navbar'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Navbar from "./components/Navbar";
+import ProductCards from "./components/ProductCards";
 
 const App = () => {
 
+  const [productsData, setProductsData] = React.useState([]);
+
   const getProductData = async () => {
     try {
-      let res = await axios.get('https://dummyjson.com/products')
-      console.log("API Response → ", res)
+      let res = await axios.get("https://dummyjson.com/products");
+      setProductsData(res.data.products);
+    } catch (error) {
+      console.log("Error in API → ", error);
     }
-    catch (error) {
-      console.log("Error in API → ", error)
-    }
-  }
+  };
 
-  // getProductData()
-  
+  useEffect(() => {
+    getProductData();
+  }, []);
+
   return (
-    <div className="h-screen bg-black text-white p-2">
+    <div className="h-fit bg-black text-white p-2 flex flex-col gap-5">
+      
       <Navbar />
-    </div>
-  )
-}
+      
+      <div className="grid grid-cols-4 gap-4">
+        {
+          productsData.map((elem) => {
+            return <ProductCards key={elem.id} product={elem} />;
+          })
+        }
+      </div>
 
-export default App
+    </div>
+  );
+};
+
+export default App;
