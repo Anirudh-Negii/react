@@ -8,6 +8,7 @@ const App = () => {
 
   const [productsData, setProductsData] = React.useState([]);
   const [iscartOpen, setIsCartOpen] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
 
   const getProductData = async () => {
     try {
@@ -29,13 +30,13 @@ const App = () => {
 
       {iscartOpen ? (
         <div className="">
-          <CartScreen />        
+          <CartScreen cartItems={cartItems} />        
         </div>
       ) : (
         <div className="grid grid-cols-4 gap-4">
           {
             productsData.map((elem) => {
-              return <ProductCards key={elem.id} product={elem} />;
+              return <ProductCards key={elem.id} product={elem} setCartItems={setCartItems} />;
             })
           }
         </div>

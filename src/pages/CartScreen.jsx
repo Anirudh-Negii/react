@@ -1,9 +1,12 @@
 import React from 'react'
+import CartItems from '../components/CartItems'
 
-const CartScreen = () => {
+const CartScreen = ({cartItems}) => {
   return (
-    <div className='text-6xl text-center h-screen'>
-      Cart Page will be displayed here.
+    <div className='grid grid-cols-3 gap-4 p-4'>
+      {cartItems.map((elem) => {
+        return <CartItems key={elem.id} product={elem} />
+      })}
     </div>
   )
 }

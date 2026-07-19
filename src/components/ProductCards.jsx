@@ -1,7 +1,7 @@
 import React from "react";
 import { Star, ShoppingCart, Tag, Package } from "lucide-react";
 
-const ProductCards = ({ product }) => {
+const ProductCards = ({ product, setCartItems }) => {
   
     if (!product) return null;
 
@@ -65,7 +65,10 @@ const ProductCards = ({ product }) => {
         </div>
 
         {/* Button */}
-        <button className="flex w-full items-center justify-center gap-2 rounded-xl bg-black py-3 font-medium text-white transition hover:bg-gray-800">
+        <button
+          onClick={() => setCartItems((prev) => [...prev, product])}
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-black py-3 font-medium text-white transition hover:bg-gray-800"
+        >
           <ShoppingCart size={18} />
           Add to Cart
         </button>
