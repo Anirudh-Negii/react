@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import CartItems from "../components/CartItems";
+import { MyStore } from "../context/MyContext";
 
-const CartScreen = ({ cartItems }) => {
+const CartScreen = () => {
+  let { cartItems } = useContext(MyStore);
+
   return (
     <div className="min-h-screen bg-black py-10">
       <div className="mx-auto max-w-6xl px-5">

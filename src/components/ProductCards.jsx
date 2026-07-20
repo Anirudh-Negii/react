@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Star, ShoppingCart, Tag, Package } from "lucide-react";
+import { MyStore } from "../context/MyContext";
 
-const ProductCards = ({ product, setCartItems }) => {
+const ProductCards = ({ product }) => {
+  let { cartItems, setCartItems } = useContext(MyStore);
   
   const addToCart = () => {
     setCartItems((prev) => [...prev, product])
