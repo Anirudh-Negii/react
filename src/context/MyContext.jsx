@@ -22,8 +22,12 @@ export const ContextProvider = ({ children }) => {
     })
   };
 
+  const removeFromCart = (id) => {
+    setCartItems((prev) => prev.filter((val) => val.id !== id));
+  }
+
   return (
-    <MyStore.Provider value={{ isCartOpen, setisCartOpen, cartItems, setCartItems, incrementQuantity, decrementQuantity }}>
+    <MyStore.Provider value={{ isCartOpen, setisCartOpen, cartItems, setCartItems, incrementQuantity, decrementQuantity, removeFromCart }}>
         {children}
     </MyStore.Provider>
   );

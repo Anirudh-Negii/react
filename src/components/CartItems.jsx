@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Minus, Plus, Trash2, Star } from "lucide-react";
+import { MyStore } from "../context/MyContext";
 
 const CartItem = ({ product }) => {
+  const { incrementQuantity, decrementQuantity, removeFromCart } = useContext(MyStore);
+
   return (
     <div className="flex gap-6 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
       {/* Product Image */}
@@ -26,9 +29,7 @@ const CartItem = ({ product }) => {
 
           <div className="mt-2 flex items-center gap-1 text-yellow-500">
             <Star size={16} fill="currentColor" />
-            <span className="text-sm text-gray-700">
-              {product.rating}
-            </span>
+            <span className="text-sm text-gray-700">{product.rating}</span>
           </div>
 
           <p className="mt-3 text-sm text-gray-500 line-clamp-2">
@@ -39,15 +40,16 @@ const CartItem = ({ product }) => {
         {/* Bottom */}
         <div className="mt-5 flex items-center justify-between">
           <div>
-            <p className="text-2xl font-bold text-black">
-              ${product.price}
-            </p>
+            <p className="text-2xl font-bold text-black">${product.price}</p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 text-black">
             {/* Quantity */}
             <div className="flex items-center rounded-lg border">
-              <button className="p-2 hover:bg-gray-100">
+              <button
+                className="p-2 cursor-pointer"
+                onClick={() => {if (product.quantity > 1) decrementQuantity(product.id)}}
+              >
                 <Minus size={18} />
               </button>
 
@@ -55,13 +57,16 @@ const CartItem = ({ product }) => {
                 {product.quantity}
               </span>
 
-              <button className="p-2 hover:bg-gray-100">
+              <button
+                className="p-2 cursor-pointer"
+                onClick={() => incrementQuantity(product.id)}
+              >
                 <Plus size={18} />
               </button>
             </div>
 
             {/* Remove */}
-            <button className="rounded-lg bg-red-50 p-3 text-red-600 transition hover:bg-red-100">
+            <button className="rounded-lg bg-red-50 p-3 text-red-600 transition hover:bg-red-100" onClick={() => removeFromCart(product.id)}>
               <Trash2 size={18} />
             </button>
           </div>
