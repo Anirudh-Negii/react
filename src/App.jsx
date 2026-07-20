@@ -36,7 +36,11 @@ const App = () => {
         <div className="grid grid-cols-4 gap-4">
           {
             productsData.map((elem) => {
-              return <ProductCards key={elem.id} product={elem} />;
+
+              let isInCart = cartItems.find((val) => val.id === elem.id);
+              console.log(isInCart);
+
+              return <ProductCards key={elem.id} product={elem} isInCart={isInCart} />;
             })
           }
         </div>

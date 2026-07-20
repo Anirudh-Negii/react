@@ -1,18 +1,18 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { Star, ShoppingCart, Tag, Package } from "lucide-react";
 import { MyStore } from "../context/MyContext";
 
-const ProductCards = ({ product }) => {
+const ProductCards = ({ product, isInCart }) => {
   let { cartItems, setCartItems } = useContext(MyStore);
-  
+
   const addToCart = () => {
-    setCartItems((prev) => [...prev, product])
+    setCartItems((prev) => [...prev, product]);
     alert(`${product.title} has been added to the cart!`);
   };
 
   if (!product) return null;
 
-  const originalPrice = ( 
+  const originalPrice = (
     product.price /
     (1 - product.discountPercentage / 100)
   ).toFixed(0);
@@ -72,13 +72,21 @@ const ProductCards = ({ product }) => {
         </div>
 
         {/* Button */}
-        <button
-          onClick={addToCart}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-black py-3 font-medium text-white transition hover:bg-gray-800"
-        >
-          <ShoppingCart size={18} />
-          Add to Cart
-        </button>
+        {isInCart ? (
+          <button className="text-blue-800 w-full bg-gray-300 flex items-center justify-center gap-5 rounded-2xl py-1">
+            <span className="text-4xl">-</span> 
+            <span className="text-4xl">1</span> 
+            <span className="text-4xl">+</span>
+          </button>
+        ) : (
+          <button
+            onClick={addToCart}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-black py-3 font-medium text-white transition hover:bg-gray-800"
+          >
+            <ShoppingCart size={18} />
+            Add to Cart
+          </button>
+        )}
       </div>
     </div>
   );
