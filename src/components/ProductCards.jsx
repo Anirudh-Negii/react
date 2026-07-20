@@ -3,9 +3,14 @@ import { Star, ShoppingCart, Tag, Package } from "lucide-react";
 
 const ProductCards = ({ product, setCartItems }) => {
   
-    if (!product) return null;
+  const addToCart = () => {
+    setCartItems((prev) => [...prev, product])
+    alert(`${product.title} has been added to the cart!`);
+  };
 
-  const originalPrice = (
+  if (!product) return null;
+
+  const originalPrice = ( 
     product.price /
     (1 - product.discountPercentage / 100)
   ).toFixed(0);
@@ -66,7 +71,7 @@ const ProductCards = ({ product, setCartItems }) => {
 
         {/* Button */}
         <button
-          onClick={() => setCartItems((prev) => [...prev, product])}
+          onClick={addToCart}
           className="flex w-full items-center justify-center gap-2 rounded-xl bg-black py-3 font-medium text-white transition hover:bg-gray-800"
         >
           <ShoppingCart size={18} />
