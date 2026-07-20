@@ -52,7 +52,7 @@ const CartItem = ({ product }) => {
               </button>
 
               <span className="w-10 text-center font-semibold">
-                1
+                {product.quantity}
               </span>
 
               <button className="p-2 hover:bg-gray-100">

@@ -3,10 +3,11 @@ import { Star, ShoppingCart, Tag, Package } from "lucide-react";
 import { MyStore } from "../context/MyContext";
 
 const ProductCards = ({ product, isInCart }) => {
-  let { cartItems, setCartItems } = useContext(MyStore);
+  let { cartItems, setCartItems, incrementQuantity, decrementQuantity } =
+    useContext(MyStore);
 
   const addToCart = () => {
-    setCartItems((prev) => [...prev, product]);
+    setCartItems((prev) => [...prev, { ...product, quantity: 1 }]);
     alert(`${product.title} has been added to the cart!`);
   };
 
@@ -73,10 +74,27 @@ const ProductCards = ({ product, isInCart }) => {
 
         {/* Button */}
         {isInCart ? (
-          <button className="text-blue-800 w-full bg-gray-300 flex items-center justify-center gap-5 rounded-2xl py-1">
-            <span className="text-4xl">-</span> 
-            <span className="text-4xl">1</span> 
-            <span className="text-4xl">+</span>
+          <button className="text-white w-full bg-black flex items-center justify-center gap-5 rounded-2xl py-1">
+            <span
+              className="text-4xl cursor-pointer font-light hover:text-gray-300"
+              onClick={() => {
+                if (isInCart.quantity > 1) {
+                  decrementQuantity(product.id);
+                } 
+                else {
+                  setCartItems((prev) => prev.filter((val) => val.id !== product.id));
+                }
+              }}
+            >
+              -
+            </span>
+            <span className="text-4xl font-semibold">{isInCart.quantity}</span>
+            <span
+              className="text-4xl cursor-pointer font-light hover:text-gray-300"
+              onClick={() => incrementQuantity(product.id)}
+            >
+              +
+            </span>
           </button>
         ) : (
           <button
